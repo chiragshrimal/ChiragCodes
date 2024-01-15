@@ -17,7 +17,7 @@ int main (){
     bb=bb>>1;
     bb=bb|1;
     bb=bb>>1;
-    bb=bb<<4;
+    bb=bb<<3;
 
     bitset<32> bb2(bb);
     cout<<bb2<<endl;
