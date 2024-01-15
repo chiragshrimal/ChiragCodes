@@ -15,7 +15,7 @@ void generate(string &s,int open,int close){
     }
     if(close>0){
         if(open<close){
-            s.push_back(')');
+            s.push_back('(');
             generate(s,open,close-1);
             s.pop_back();/// backtracking 
         }
