@@ -1,8 +1,3 @@
 enter a number
-DDRDRR
-DDRRDR
-DDRURDDR
-DRDDRR
-DRDRDR
-DRRDDR
-DRRDLDRR
+enter number of permutation
+3241

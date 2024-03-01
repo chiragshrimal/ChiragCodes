@@ -4,7 +4,7 @@ using namespace std;
 
 // solving without frequency array 
 
-void g(int ind,int arr[],int n,vector<vector<int>> &v){
+void g(int ind,vector<int> &arr,int n,vector<vector<int>> &v){
     if(ind==n){
         vector<int>s;
         for(int i=0;i<n;i++){
@@ -23,7 +23,7 @@ void g(int ind,int arr[],int n,vector<vector<int>> &v){
 
 
 
-void f(int *arr,int l,int n,vector<vector<int>>&s,vector<int> &v,int *frr){
+void f(vector<int> &arr,int l,int n,vector<vector<int>>&s,vector<int> &v,int *frr){
     if(v.size()==n){
         s.push_back(v);
         return;
@@ -45,11 +45,17 @@ int main(){
     int n;
     cout<<"enter a number"<<endl;
     cin>>n;
-    int arr[n];
+    vector<int> arr(n);
     cout<<"enter elements"<<endl;
     for(int i=0;i<n;i++){
         cin>>arr[i];
     }
+    // agar hm phle se hi sort krke bhejte hai toh 
+    // always lexicography ordwer m hi aayega 
+
+
+    //sort(arr.begin(),arr.end());
+
     int frr[n]={0};
     vector<vector<int>> s;
     vector<int> v;
