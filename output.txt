@@ -1,7 +1,8 @@
 enter a number
-0 0 1 0 
-1 0 0 0 
-0 0 0 1 
-0 1 0 0 
-
-
+DDRDRR
+DDRRDR
+DDRURDDR
+DRDDRR
+DRDRDR
+DRRDDR
+DRRDLDRR
