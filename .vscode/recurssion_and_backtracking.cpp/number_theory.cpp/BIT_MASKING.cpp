@@ -33,7 +33,7 @@ int main(){
     for(int i=0;i<n;i++){
         for(int j=i+1;j<n;j++){
             int m=(v[i]&v[j]);
-            ct=count_setbit(m);//O(1)
+            ct=count_setbit(m);//O(1) 
             if(max_count<ct){
                 max_count=ct;
             }

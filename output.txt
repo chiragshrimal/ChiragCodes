@@ -1,3 +1,2 @@
-enter a number
-enter number of permutation
-3241
+3
+3
