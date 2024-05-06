@@ -49,13 +49,13 @@ void sort_optimal(int n,int arr[]){
             swap(arr[low],arr[mid]);
             low++;
             mid++;
-        }
+        }else{
         if(arr[mid]==1){
             mid++;
-        }
-        if(arr[mid]==2){
+        }else{
             swap(arr[mid],arr[high]);
             high--;
+        }
         }
     }
     return ;
