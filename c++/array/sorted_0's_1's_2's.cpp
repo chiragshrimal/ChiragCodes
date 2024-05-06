@@ -46,9 +46,9 @@ void sort_optimal(int n,int arr[]){
     int mid=0;
     while(mid<=high){
         if(arr[mid]==0){
-            swap(arr[mid],arr[low]);
-            mid++;
+            swap(arr[low],arr[mid]);
             low++;
+            mid++;
         }
         if(arr[mid]==1){
             mid++;
