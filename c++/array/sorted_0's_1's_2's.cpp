@@ -37,7 +37,7 @@ void sort_better(int n,int arr[]){
     return ;
 }
 // optimal apporach 
-// number of iteration is less compair to better apporach 
+// number of iteration is less compair to better apporach  ek hi iteration m kam ho jayega 
 // time complexity is O(n)
 // space complexity is O(1)
 // yha se ye samajh aaya ki if if kreke kya dikkat ho skti hai *****
@@ -69,10 +69,10 @@ int main(){
     for(int i=0;i<n;i++){
         cin>>arr[i];
     }
-    // sort_better(n,arr);
-    // for(int i=0;i<n;i++){
-    //     cout<<arr[i]<<endl;
-    // }
+    sort_better(n,arr);
+    for(int i=0;i<n;i++){
+        cout<<arr[i]<<endl;
+    }
     sort_optimal(n,arr);
     for(int i=0;i<n;i++){
         cout<<arr[i]<<endl;
