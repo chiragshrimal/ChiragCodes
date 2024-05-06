@@ -40,6 +40,8 @@ void sort_better(int n,int arr[]){
 // number of iteration is less compair to better apporach 
 // time complexity is O(n)
 // space complexity is O(1)
+// yha se ye samajh aaya ki if if kreke kya dikkat ho skti hai *****
+// ho skta hai ki mid phle hi high usse bhut aage nikal jaye 
 void sort_optimal(int n,int arr[]){
     int low=0;
     int high =n-1;
