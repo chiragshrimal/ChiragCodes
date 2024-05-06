@@ -113,7 +113,13 @@ int find_largest_optimal(int n, int arr[],int k){
             if(max<j-i){
                 max=j-i;
             }
-            sum=sum+arr[j];
+            if(j<n){
+                sum=sum+arr[j];
+                j++;
+            }else{
+                sum=sum-arr[i];
+                i++;
+            }
         }
         while(sum<k){
             sum+=arr[j];
