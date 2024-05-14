@@ -7,7 +7,7 @@ vector<int> sprial_print(vector<vector<int>> &v){
     int i=0;
     int j=0;
     vector<int> ans;
-    while(i<=n && j<=m){
+    while(i<n && j<m){
         for(int k=j;k<m;k++){
             ans.push_back(v[i][k]);
         }
