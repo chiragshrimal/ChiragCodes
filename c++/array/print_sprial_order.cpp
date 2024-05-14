@@ -39,6 +39,7 @@ int main(){
             cin>>v[i][j];
         }
     }
+    cout<<"hello"<<endl;
     vector<int> ans=sprial_print(v);
     for(auto it : ans){
         cout<<it<<endl;
