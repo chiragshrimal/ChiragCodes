@@ -15,17 +15,19 @@ vector<int> sprial_print(vector<vector<int>> &v){
         for(int k=i;k<n;k++){
             ans.push_back(v[k][m-1]);
         }
-        if(i<=n){
         m--;
+        if(i<n){
         for(int k=m-1;k>=j;k--){
             ans.push_back(v[n-1][k]);
         }
+         n--;
         }
-        n--;
+        if(j<m){
         for(int k=n-1;k>=i;k--){
             ans.push_back(v[k][j]); 
         }
         j++;
+        }
     }
     return ans;
 
