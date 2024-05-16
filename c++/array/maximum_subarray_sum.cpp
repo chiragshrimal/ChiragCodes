@@ -55,6 +55,7 @@ int subarray_maximum_optimal(int n,int arr[]){
     int anslast=-1;
     int start=-1;
     for(int i=0;i<n;i++){
+        sum+=arr[i];
         if(sum<=0){
             start=i;
         }
@@ -66,7 +67,7 @@ int subarray_maximum_optimal(int n,int arr[]){
         if(sum<0){
             sum=0;
         }
-        sum+=arr[i];
+    
     }
     cout<<"subarray is :"<<endl;
     for(int i=ansstart;i<anslast;i++){

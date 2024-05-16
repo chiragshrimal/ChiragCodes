@@ -29,9 +29,9 @@ bool two_sum_better(int n, int arr[], int target)
         index[arr[i]] = 1;
     }
     for (int i = 0; i < n; i++)
-    {
-        if (index[target - arr[i]] == 1)
         {
+        if (index[target - arr[i]] == 1)
+            {
             return true;
         }
     }
@@ -60,9 +60,9 @@ pair<int, int> two_sum_optimal(int n, int arr[], int target)
             sum = sum - arr[i];
             i++;
             sum = sum + arr[i];
-        }
-        else
-        {
+                }
+                else
+                {
             sum = sum - arr[j];
             j--;
             sum = sum + arr[j];
