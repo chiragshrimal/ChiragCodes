@@ -21,7 +21,9 @@ set<vector<int>> sum_brute(vector<int>& v ){
     }
     return s;
 }
+// better apporac
 int main(){
+    cout<<"hello"<<endl;
     int n;
     cin>>n;
     vector<int> v;
