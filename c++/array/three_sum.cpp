@@ -28,6 +28,7 @@ int main(){
     for(int i=0;i<n;i++){
         cin>>v[i];
     }
+    cout<<"hello"<<endl;
     set<vector<int>> brute=sum_brute(v);
     for(auto it : brute){
         for(auto k : it){
