@@ -1,0 +1,1 @@
+ // max_fre=find_max(hash);
