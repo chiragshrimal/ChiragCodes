@@ -8,16 +8,18 @@ int main (){
     int n;
     cin>>n;
     vector<int>divisor[n];
+    vector<int> sum(n,0);// sum of ith number divisor
+    divisor[1]={1};
     for(int i=2;i<n;++i){
         for(int j=i;j<n;j+=i){
             divisor[j].push_back(i);
+            sum[j]+=i;
         }
     }
-    for(auto value : divisor){
-        for(auto ele : value){
-        cout<<ele<<" ";
+    for(int i=1;i<n;i++){
+        for(auto it: divisor[i]){
+            cout<<it<<" ";
         }
         cout<<endl;
-
     }
 }

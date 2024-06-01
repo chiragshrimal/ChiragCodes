@@ -13,7 +13,7 @@ int main (){
     print_binary(n);
     cout<<endl;
     int i;
-    cin>>i;
+    cin>>i;   
     if((n&(1<<i))==0){
         cout<<"bit is unset"<<endl;
     }else{

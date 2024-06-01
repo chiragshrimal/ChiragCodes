@@ -58,12 +58,13 @@ int binary_multiplication (int a, int b)
     int sum  = 0;
     while (b)
     {
-        if ((b & 1) == 1)
-        sum=(sum+a)%m;
+        if ((b & 1) == 1){
+            sum=(sum+a)%m;
+        }
              a = (a + a)%m;
              b = b >> 1;
     }
-   
+    
     return sum;
 }
 int binary_exponention(int a, int b)
