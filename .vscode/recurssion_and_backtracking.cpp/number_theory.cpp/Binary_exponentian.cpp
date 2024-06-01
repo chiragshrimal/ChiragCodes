@@ -4,13 +4,15 @@ const int m = 1e9 + 7;
 // a<= 1e9;
 // b<=1e9;
 
+
 int bit_exponention(int a, int b)
 {
     int ans = 1;
     while (b)
     {
-        if ((b & 1) == 1)
-            ans = (ans * a)%m;
+        if ((b & 1) == 1){
+             ans = (ans * a)%m;
+        }
              a = (a * a)%m;
              b = b >> 1;
     }
@@ -58,7 +60,7 @@ int binary_multiplication (int a, int b)
     {
         if ((b & 1) == 1)
         sum=(sum+a)%m;
-             a = (a * a)%m;
+             a = (a + a)%m;
              b = b >> 1;
     }
    
@@ -85,6 +87,7 @@ int main()
 {
     // pow(2,3)--->> return double value
     // as we know bhut bde number m double m error aa jati hain
+    // This is because they are a finite representation of real numbers in binary form
     int a, b;
     cin >> a>>b;
     int k = bit_exponention(a, b);

@@ -25,6 +25,7 @@ int main(){
 
 
     //swaping usig xor operater
+    // without extra varriable 
     int p,q ;
     cin>>p>>q;
     cout<<p<<" "<<q<<endl;

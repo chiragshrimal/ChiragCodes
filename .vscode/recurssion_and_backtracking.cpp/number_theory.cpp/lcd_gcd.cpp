@@ -3,7 +3,7 @@ using namespace std;
 
 int gcd(int a,int b){// normal methord // time complexity is O(n)
 int GCD=1;
-for(int i=1;i<=max(a,b);i++){
+for(int i=1;i<=max(a,b);i++){// maximum isliye liya because gcd(0,6)=6;
     if((a%i==0)&&(b%i==0)){
         GCD=i;
     }
