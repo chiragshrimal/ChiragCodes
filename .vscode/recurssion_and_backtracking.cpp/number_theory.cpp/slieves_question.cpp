@@ -1,13 +1,11 @@
 #include<bits/stdc++.h>
 using namespace std;
 
-const int N=1e6;
+const int N=3*1e5;
 
 int main(){
-    cout<<"hello"<<endl;
     int n;
     cin>>n;
-    cout<<n<<endl;
     vector<int> v;
     for(int i=0;i<n;i++){
         int x;
@@ -26,14 +24,19 @@ int main(){
             }
         }
     }
+    ans[1]=n;
     int t;
     cin>>t;
-    cout<<t<<endl;
     while(t--){
         int p,q;
         cin>>p>>q;
-        cout<<p<<q<<endl;
-        int result=ans[p]+ans[q]-ans[gcd(p,q)];
+        long long int lcm_number=lcm(p,q);
+        int result=0;
+        if(lcm_number>N){
+            result=ans[p]+ans[q];
+        }else{
+            result=ans[p]+ans[q]-ans[lcm(p,q)];
+        }
         cout<<result<<endl;
     }
     return 0;

@@ -26,6 +26,7 @@ int  main(){
     cout<<"enter a number"<<endl;
     cin>>n;
     f(n,fact);
+    // cout<<fact<<endl;
     int fact2=g(n);
     cout<<fact2<<endl;
 }

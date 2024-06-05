@@ -59,7 +59,7 @@ void merge_optimal1(vector<int>& v1,vector<int>& v2){
     sort(v2.begin(),v2.end());
     return ;
 }
-// 2 optimal apporach 
+// 2 optimal apporach good concept 
 // time complexity is O()
 // space complexity is O()
 
@@ -95,9 +95,8 @@ void merge_optimal2(vector<int>& v1,vector<int>& v2){
         left=0;
         right=gap;
     }
-
+    
 }
-
 int main(){
     int n;
     cin>>n;
