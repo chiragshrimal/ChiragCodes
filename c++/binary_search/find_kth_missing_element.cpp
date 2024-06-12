@@ -67,7 +67,7 @@ int  main(){
     }
     int brute=findKthPositive_brute(v,k);
     cout<<brute<<endl;
-
+    
     int optimal=findKthPositive_optimal(v,k);
     cout<<optimal<<endl;
 }
