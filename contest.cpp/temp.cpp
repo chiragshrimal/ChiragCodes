@@ -1,49 +1,97 @@
-#include<bits/stdc++.h>
+#include <bits/stdc++.h>
 using namespace std;
-vector<vector<int>> ans;
-void f(int index,vector<int>& temp,int k,vector<int>& v){
-            if(k==0){
-                ans.push_back(temp);
-                return ;
-            }
-        for(int i=index;i<v.size();i++){
-            if(i!=index && v[i]==v[i-1]){
-                continue;
-            }
-            temp.push_back(v[i]);
-            k=k-v[i];
-            f(i+1,temp,k,v);
-            k=k+v[i];
-            temp.pop_back();
+const int N = 1e5 + 1;
+int main()
+{
+    int t;
+    cin >> t;
+    while (t--)
+    {
+        long long int n;
+        cin >> n;
+        if(n<38){
+            cout<<"no"<<endl;
+            continue;
+        }else{
+            n=n-4;
         }
-    }
-    vector<vector<int>> combinationSum2(vector<int>& v, int k) {
-        sort(v.begin(),v.end());
-        vector<int> temp;
-        // cout<<"hello"<<endl;
-        f(0,temp,k,v);
-        // cout<<"hello"<<endl;
-        return ans;
-}
-int main(){
-    int n;
-    cin>>n;
-    int k;
-    cin>>k;
-    vector<int> v;
-    for(int i=0;i<n;i++){
-        int x;
-        cin>>x;
-        v.push_back(x);
-    }
-    // for(auto it : v){
-    //     cout<<it<<endl;
-    // }
-    vector<vector<int>> s=combinationSum2(v,k);
-    for(auto it : s){
-        for(auto it2 :it){
-            cout<<it2<<" ";
+        vector<int> high_primefactor(N, 0); // store high prime factor of ith element
+        vector<int> low_primefactor(N, 0);  // store low prime factor of ith element
+        vector<int> v(N, 1);                // let assume all numbers are prime
+        v[1] = v[0] = 0;
+        // sleves algorithm
+        for (int i = 2; i < N; i++)
+        { // time complexity is O(n*log(log(n)))
+            if (v[i] == 1)
+            {
+                low_primefactor[i] = i;
+                high_primefactor[i] = i;
+                for (int j = i * 2; j < N; j += i)
+                {
+                    v[j] = 0;
+                    if (low_primefactor[j] == 0)
+                    {
+                        low_primefactor[j] = i;
+                    }
+                    high_primefactor[j] = i;
+                }
+            }
         }
-        cout<<endl;
+
+        int i = 0;
+        while (v[i] != 1)
+        {
+            i++;
+        }
+        int j = n;
+        while (v[j] != 1)
+        {
+            j--;
+        }
+        int sum = v[i] * v[i] + v[j] * v[j];
+        while (i < j)
+        {
+            if (sum == n)
+            {
+                cout << "yes" << endl;
+                break;
+            }
+            if (sum < n)
+            {
+                sum = sum - v[i]*v[i];
+                i++;
+                while (v[i] != 1)
+                {
+                    i++;
+                }
+                if (i < j)
+                {
+                    sum = sum + v[i]*v[i];
+                }
+                else
+                {
+                    cout << "no" << endl;
+                    break;
+                }
+            }
+            else
+            {
+                sum = sum - v[j]*v[j];
+                j--;
+                while (v[j] != 1)
+                {
+                    j--;
+                }
+                if (i < j)
+                {
+                    sum = sum + v[j]*v[j];
+                }
+                else
+                {
+                    cout << "no" << endl;
+                    break;
+                }
+            }
+        }
     }
 }
