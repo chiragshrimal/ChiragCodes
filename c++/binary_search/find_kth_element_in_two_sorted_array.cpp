@@ -1,11 +1,10 @@
-#include <bits/stdc++.h>
+#include<bits/stdc++.h>
 using namespace std;
 
-// brute force apporach using merging
-// time complexity is O(n1+n2)
-// space complecity is O(n1+n2)
-
-int median_brute(vector<int> &v1, vector<int> &v2)
+// brute force apporach using merging 
+// time complexity is O(m+n)
+// space complexity is O(m+n);
+int Kth_element_brute(vector<int> &v1, vector<int> &v2,int k)
 {
     int n1 = v1.size();
     int n2 = v2.size();
@@ -35,33 +34,21 @@ int median_brute(vector<int> &v1, vector<int> &v2)
         v3.push_back(v2[j]);
         j++;
     }
-
-    int n = n1 + n2;
-    if (n % 2 == 0)
-    {
-        return (v3[(n / 2)] + v3[(n / 2) - 1]) / 2;
-    }
-    else
-    {
-        return v3[n / 2];
-    }
+    return v3[k-1];
 }
 
 // better apporach using cnt variable
 // time complexity is O(m+n)
 // space complexity is O(1)
-int median_better(vector<int> &v1, vector<int> &v2)
+int Kth_element_better(vector<int> &v1, vector<int> &v2,int k)
 {
     int n1 = v1.size();
     int n2 = v2.size();
     int i = 0;
     int j = 0;
     int n = n1 + n2;
-    int ind2 = n / 2;
-    int ind1 = ind2 - 1;
+    int ind1 =k-1;
     int cnt = -1;
-    int ele1;
-    int ele2;
     while (i < n1 && j < n2)
     {
         if (v1[i] <= v2[j])
@@ -69,11 +56,7 @@ int median_better(vector<int> &v1, vector<int> &v2)
             cnt++;
             if (cnt == ind1)
             {
-                ele1 = v1[i];
-            }
-            if (cnt == ind2)
-            {
-                ele2 = v1[i];
+                return v1[i];
             }
             i++;
         }
@@ -82,11 +65,7 @@ int median_better(vector<int> &v1, vector<int> &v2)
             cnt++;
             if (cnt == ind1)
             {
-                ele1 = v2[j];
-            }
-            if (cnt == ind2)
-            {
-                ele2 = v2[j];
+               return v2[j];
             }
             j++;
         }
@@ -96,11 +75,7 @@ int median_better(vector<int> &v1, vector<int> &v2)
         cnt++;
         if (cnt == ind1)
         {
-            ele1 = v1[i];
-        }
-        if (cnt == ind2)
-        {
-            ele2 = v1[i];
+          return v1[i];
         }
         i++;
     }
@@ -109,44 +84,31 @@ int median_better(vector<int> &v1, vector<int> &v2)
         cnt++;
         if (cnt == ind1)
         {
-            ele1 = v2[j];
-        }
-        if (cnt == ind2)
-        {
-            ele2 = v2[j];
+            return v2[j];
         }
         j++;
     }
-    if (n % 2 == 0)
-    {
-        return (ele1 + ele2) / 2;
-    }
-    else
-    {
-        return ele2;
-    }
+    return -1;
 }
-
 // optimal apporach  binary search apply on less element containing  vector
 // time complexity is O(log(min(n1,n2)))
 // space complecity is o(1)
 
-double median_optimal(vector<int> &v1, vector<int> &v2)
+double Kth_element_optimal(vector<int> &v1, vector<int> &v2,int k)
 {
     int n1 = v1.size();
     int n2 = v2.size();
     if (n1 > n2)
     {
-        return median_optimal(v2, v1);// important point hai return krna hota hain
+        return Kth_element_optimal(v2, v1,k);// important point hai return krna hota hain
     }
     int n = n1 + n2;
-    int m = (n + 1) / 2;
-    int low = 0;
-    int high = n1;
+    int low = max(k-n2,0);// important case hai 
+    int high = min(n1,k);// smjho bro 
     while (low <= high)
     {
         int mid1 = low + ((high - low) >> 1);
-        int mid2 = m - mid1;
+        int mid2 = k- mid1;
         int r1 = INT_MAX;
         int r2 = INT_MAX;
         int l1 = INT_MIN;
@@ -171,15 +133,7 @@ double median_optimal(vector<int> &v1, vector<int> &v2)
         }
         if (l1 <= r2 && l2 <= r1)
         {
-            if ((n % 2) == 0)
-            {
-                return (double)(max(l1, l2) + min(r1, r2)) / 2.0;
-            }
-            else
-            {
-                // cout<<max(l1,l2)<<endl;
-                return max(l1, l2);
-            }
+            return max(l1,l2);
         }
 
         if (l1 > r2)
@@ -194,32 +148,30 @@ double median_optimal(vector<int> &v1, vector<int> &v2)
     return 0;
 }
 
-int main()
-{
-    int n1;
-    cin >> n1;
-    int n2;
-    cin >> n2;
+
+int main(){
+    int n1,n2;
+    cin>>n1>>n2;
+    int k;
+    cin>>k;
     vector<int> v1;
     vector<int> v2;
-    for (int i = 0; i < n1; i++)
-    {
+    for(int i=0;i<n1;i++){
         int x;
-        cin >> x;
+        cin>>x;
         v1.push_back(x);
     }
-    for (int j = 0; j < n2; j++)
-    {
+    for(int i=0;i<n2;i++){
         int x;
-        cin >> x;
+        cin>>x;
         v2.push_back(x);
     }
-    // int brute=median_brute(v1,v2);
-    // cout<<brute<<endl;
+    int brute=Kth_element_brute(v1,v2,k);
+    cout<<brute<<endl;
 
-    // int better=median_better(v1,v2);
-    // cout<<better<<endl;
+    int better=Kth_element_better(v1,v2,k);
+    cout<<better<<endl;
 
-    double optimal = median_optimal(v1, v2);
-    cout << optimal << endl;
+    int optimal=Kth_element_optimal(v1,v2,k);
+    cout<<optimal<<endl;
 }
