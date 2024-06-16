@@ -58,7 +58,7 @@ int row_with_maximum_ones_better(vector<vector<int>>& v){
     return index;
     
 }
-// optimal apporach 
+// optimal apporach  good concept
 //time complexity is O(n+m)
 // space complexity is O(1)
 
