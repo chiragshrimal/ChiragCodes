@@ -10,7 +10,7 @@ int minimum_platform_brute(vector<int>& arr,vector<int>& dep){
     for(int i=0;i<n;i++){
         if(ans.empty()){
             cnt++;
-            ans.push_back({arr[i],dep[i]});
+            ans.push_back({arr[i],dep[i]}); 
         }else{
             int k=0;
             for(int j=0;j<ans.size();j++){
