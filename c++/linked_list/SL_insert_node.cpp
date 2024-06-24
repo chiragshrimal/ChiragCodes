@@ -211,6 +211,33 @@ Node*At_value_delete(Node*head,int target){
     temp->next=var;
     return head;
 }
+// delete at some position 
+// time complexity is O(n)
+Node*At_position(Node*head,int k){
+    Node*temp=head;
+    if(head==NULL || head->next==NULL){
+        if(k==1){
+            return NULL;
+        }else{
+            return head;
+        }
+    }
+    if(k==1){
+        Node*temp=head->next;
+        head=temp;
+        return head;
+    }
+    int cnt=0;
+    k=k-1;
+    while(temp){
+        cnt++;
+        if(cnt==k){
+            temp->next=temp->next->next;
+        }
+        temp=temp->next;
+    }
+    return head;
+}
 
 
 int main(){
