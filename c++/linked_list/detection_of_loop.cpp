@@ -77,74 +77,42 @@ Node* finding_element(Node*head,int target){
     }
     return NULL;
 }
-
-// reverse linked list 
-// iterative apporach 
-// time complexity is O(n)
-// space complexity is O(1)
-
-Node*reverse_iterative(Node*head){
-    if(head==NULL || head->next==NULL){
-        return head;
-    }
-    Node*pre=NULL;
-    Node*cur=head;
-    Node*fur=head->next;
-    while(fur){
-        cur->next=pre;
-        pre=cur;
-        cur=fur;
-        fur=fur->next;
-    }
-    cur->next=pre;
-    pre=cur;
-    head=pre;
-    return head;
-}
-
-// iterative advanced implimentation 
-
-Node*reverse_iterative_adv(Node*head){
-    Node*pre=NULL;
-    Node*cur=head;
-    while(cur){
-        Node*front=cur->next;
-        cur->next=pre;
-        pre=cur;
-        cur=front;
-    }
-    return pre;
-}
-
-
-//recursive apporach 
-// time complexity is O(n)
-// space complexity is O(stack size())
-
-Node*reverse_recursive(Node*pre,Node*cur){
-    if(cur==NULL){
-        return pre;
-    }
-    Node*front=cur->next;
-    cur->next=pre;
-    pre=cur;
-    cur=front;
-    return reverse_recursive(pre,cur);
-}
-
-// feel of reciursion apporach 
+// brute force apporach 
 // time complexity is O(2*n)
-// space complexity is O(n)
-
-Node*reverse_recursive_ADV(Node*head){
-    if(head==NULL || head->next==NULL){
-        return head;
+//space complexity is O(n)
+bool detection_brute(Node*head){
+    unordered_map<Node*,int> m;
+    Node*temp= head;
+    while(temp){
+        auto it =m.find(temp);
+        if(it!=m.end()){
+            if(m[temp]==1){
+                return true;
+            }
+        }else{
+            m.insert({temp,1});
+        }
+        temp=temp->next;
     }
-    Node*newhead=reverse_recursive_ADV(head->next);
-    Node*front =head->next;
-    front->next=head;
-    head->next=NULL;
-    return newhead;
+    return false;
+}
+
+// detection of loop 
+//optimal apporach 
+// time complexity is O()
+//space complexity is O(1)
+
+bool detection_optimal(Node*head){
+    Node*slow=head;
+    Node*fast=head;
+    while(fast!=NULL && fast->next!=NULL){
+        slow=slow->next;
+        fast=fast->next->next;
+        if(slow==fast){
+            return true;
+        }
+    }
+    return false;
 }
 int main(){
     int n;
@@ -156,15 +124,6 @@ int main(){
         v.push_back(x);
     }
     Node*head=create_linked_list(v);
-    linked_list_traversal(head);
-
-    head=reverse_iterative_adv(head);
-    linked_list_traversal(head);
-
-    head=reverse_recursive(NULL,head);
-    linked_list_traversal(head);
-
-    head=reverse_recursive_ADV(head);
     linked_list_traversal(head);
 
 }

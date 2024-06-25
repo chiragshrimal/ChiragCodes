@@ -93,14 +93,8 @@ int main(){
         v.push_back(x);
     }
     Node*head=create_linked_list(v);
-
     linked_list_traversal(head);
-
-    int length=length_linked_list(head);
-    cout<<length<<endl;
-
-    Node*add=finding_element(head,9);// address of that element 
-    cout<<add<<endl;
+    
 }    
 
 

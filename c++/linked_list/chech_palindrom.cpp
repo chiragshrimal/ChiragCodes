@@ -77,65 +77,18 @@ Node* finding_element(Node*head,int target){
     }
     return NULL;
 }
-
-// reverse linked list 
-// iterative apporach 
-// time complexity is O(n)
-// space complexity is O(1)
-
-Node*reverse_iterative(Node*head){
-    if(head==NULL || head->next==NULL){
-        return head;
+Node* middle_optimal(Node*head){
+    if(head==NULL){
+        return NULL;
     }
-    Node*pre=NULL;
-    Node*cur=head;
-    Node*fur=head->next;
-    while(fur){
-        cur->next=pre;
-        pre=cur;
-        cur=fur;
-        fur=fur->next;
+    Node*slow=head;
+    Node*fast=head;
+    while(fast->next!=NULL && fast->next->next!=NULL){
+        fast=fast->next->next;
+        slow=slow->next;
     }
-    cur->next=pre;
-    pre=cur;
-    head=pre;
-    return head;
+    return slow;
 }
-
-// iterative advanced implimentation 
-
-Node*reverse_iterative_adv(Node*head){
-    Node*pre=NULL;
-    Node*cur=head;
-    while(cur){
-        Node*front=cur->next;
-        cur->next=pre;
-        pre=cur;
-        cur=front;
-    }
-    return pre;
-}
-
-
-//recursive apporach 
-// time complexity is O(n)
-// space complexity is O(stack size())
-
-Node*reverse_recursive(Node*pre,Node*cur){
-    if(cur==NULL){
-        return pre;
-    }
-    Node*front=cur->next;
-    cur->next=pre;
-    pre=cur;
-    cur=front;
-    return reverse_recursive(pre,cur);
-}
-
-// feel of reciursion apporach 
-// time complexity is O(2*n)
-// space complexity is O(n)
-
 Node*reverse_recursive_ADV(Node*head){
     if(head==NULL || head->next==NULL){
         return head;
@@ -146,6 +99,33 @@ Node*reverse_recursive_ADV(Node*head){
     head->next=NULL;
     return newhead;
 }
+// check for palindrom 
+// time complexity is O(3*n/2)
+// space compelxity is O(1)
+
+bool palindrom_optimal(Node*head){
+    if(head==NULL || head->next==NULL){
+        return true;
+    }
+    Node*mid=middle_optimal(head);
+    Node*newhead1=reverse_recursive_ADV(mid->next);
+    Node*newhead=newhead1;
+    mid->next=NULL;
+    Node*temp=head;
+    while(temp!=NULL && newhead!=NULL){
+        if(temp->data!=newhead->data){
+            return false;
+        }
+        temp=temp->next;
+        newhead=newhead->next;
+    }
+    mid->next=reverse_recursive_ADV(newhead1);
+    return true;
+}
+
+
+
+
 int main(){
     int n;
     cin>>n;
@@ -158,13 +138,15 @@ int main(){
     Node*head=create_linked_list(v);
     linked_list_traversal(head);
 
-    head=reverse_iterative_adv(head);
-    linked_list_traversal(head);
+    bool check=palindrom_optimal(head);
+    cout<<check<<endl;
 
-    head=reverse_recursive(NULL,head);
     linked_list_traversal(head);
+}    
 
-    head=reverse_recursive_ADV(head);
-    linked_list_traversal(head);
 
-}
+
+
+
+
+

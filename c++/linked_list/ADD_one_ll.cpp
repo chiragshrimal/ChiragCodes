@@ -77,65 +77,6 @@ Node* finding_element(Node*head,int target){
     }
     return NULL;
 }
-
-// reverse linked list 
-// iterative apporach 
-// time complexity is O(n)
-// space complexity is O(1)
-
-Node*reverse_iterative(Node*head){
-    if(head==NULL || head->next==NULL){
-        return head;
-    }
-    Node*pre=NULL;
-    Node*cur=head;
-    Node*fur=head->next;
-    while(fur){
-        cur->next=pre;
-        pre=cur;
-        cur=fur;
-        fur=fur->next;
-    }
-    cur->next=pre;
-    pre=cur;
-    head=pre;
-    return head;
-}
-
-// iterative advanced implimentation 
-
-Node*reverse_iterative_adv(Node*head){
-    Node*pre=NULL;
-    Node*cur=head;
-    while(cur){
-        Node*front=cur->next;
-        cur->next=pre;
-        pre=cur;
-        cur=front;
-    }
-    return pre;
-}
-
-
-//recursive apporach 
-// time complexity is O(n)
-// space complexity is O(stack size())
-
-Node*reverse_recursive(Node*pre,Node*cur){
-    if(cur==NULL){
-        return pre;
-    }
-    Node*front=cur->next;
-    cur->next=pre;
-    pre=cur;
-    cur=front;
-    return reverse_recursive(pre,cur);
-}
-
-// feel of reciursion apporach 
-// time complexity is O(2*n)
-// space complexity is O(n)
-
 Node*reverse_recursive_ADV(Node*head){
     if(head==NULL || head->next==NULL){
         return head;
@@ -145,6 +86,69 @@ Node*reverse_recursive_ADV(Node*head){
     front->next=head;
     head->next=NULL;
     return newhead;
+}
+
+// ADD one to linked list 
+// time complexity is O()
+// space complexity is O()
+
+Node*add_one_better(Node*head){
+    Node*newhead=reverse_recursive_ADV(head);
+    Node*temp=newhead;
+    int carry=0;
+    Node*pre=NULL;
+    while(temp){
+        int a=temp->data+1;
+        int x=a%10;
+        carry=a/10;
+        pre=temp;
+        temp->data=x;
+        temp=temp->next;
+        if(carry==0){
+            break;
+        }
+    }
+    if(carry!=0){
+        pre->next=new Node(carry);
+    }
+    head=reverse_recursive_ADV(newhead);
+    return head;
+}
+
+int f(Node*head){
+    if(head==NULL){
+        return 1;
+    }
+    if(head->next==NULL){
+        int a=head->data +1;
+        int x=a%10;
+        head->data=x;
+        int carry=a/10;
+        return carry;
+    }
+    int carry=f(head->next);
+    if(carry==0){
+        return 0;
+    }
+    int a=head->data +carry;
+    int x=a%10;
+    head->data=x;
+    carry=a/10;
+    
+    return carry;
+}
+//optimal apporach 
+//time complexity is O(2*n)
+// space compelcity is o(stack size());
+
+Node*add_one_optimal(Node*head){
+    int carry=f(head);
+    if(carry!=0){
+        Node*var=new Node(carry);
+        var->next=head;
+        head=var;
+    }
+    return head;
 }
 int main(){
     int n;
@@ -158,13 +162,17 @@ int main(){
     Node*head=create_linked_list(v);
     linked_list_traversal(head);
 
-    head=reverse_iterative_adv(head);
+    // head=add_one_better(head);
+    // linked_list_traversal(head);
+
+    head=add_one_optimal(head);
     linked_list_traversal(head);
 
-    head=reverse_recursive(NULL,head);
-    linked_list_traversal(head);
+}    
 
-    head=reverse_recursive_ADV(head);
-    linked_list_traversal(head);
 
-}
+
+
+
+
+

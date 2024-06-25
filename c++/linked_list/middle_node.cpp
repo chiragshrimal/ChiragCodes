@@ -77,74 +77,46 @@ Node* finding_element(Node*head,int target){
     }
     return NULL;
 }
+// finding middle element of the linked list 
+// time complexity is O(3*n/2)
+//space complexity is O(1)
 
-// reverse linked list 
-// iterative apporach 
-// time complexity is O(n)
-// space complexity is O(1)
+int middle_brute(Node*head){
+    if(head==NULL){
+        return -1;
+    }
+    if(head->next==NULL){
+        return head->data;
+    }
 
-Node*reverse_iterative(Node*head){
-    if(head==NULL || head->next==NULL){
-        return head;
+    int l=length_linked_list(head);
+    int mid=0;
+    if(l%2==0){
+        mid=l/2;
+    }else{
+        mid=(l+1)/2;
     }
-    Node*pre=NULL;
-    Node*cur=head;
-    Node*fur=head->next;
-    while(fur){
-        cur->next=pre;
-        pre=cur;
-        cur=fur;
-        fur=fur->next;
+    int cnt=1;
+    Node*temp=head;
+    while(cnt!=mid){
+        temp=temp->next;
+        cnt++;
     }
-    cur->next=pre;
-    pre=cur;
-    head=pre;
-    return head;
+    return temp->data;
 }
 
-// iterative advanced implimentation 
+//optimal apporach 
+//time complexity is O((n/2)*2)
+/// space compelxity is O(1)
 
-Node*reverse_iterative_adv(Node*head){
-    Node*pre=NULL;
-    Node*cur=head;
-    while(cur){
-        Node*front=cur->next;
-        cur->next=pre;
-        pre=cur;
-        cur=front;
+Node* middle_optimal(Node*head){
+    Node*slow=head;
+    Node*fast=head;
+    while(fast!=NULL && fast->next!=NULL){
+        fast=fast->next->next;
+        slow=slow->next;
     }
-    return pre;
-}
-
-
-//recursive apporach 
-// time complexity is O(n)
-// space complexity is O(stack size())
-
-Node*reverse_recursive(Node*pre,Node*cur){
-    if(cur==NULL){
-        return pre;
-    }
-    Node*front=cur->next;
-    cur->next=pre;
-    pre=cur;
-    cur=front;
-    return reverse_recursive(pre,cur);
-}
-
-// feel of reciursion apporach 
-// time complexity is O(2*n)
-// space complexity is O(n)
-
-Node*reverse_recursive_ADV(Node*head){
-    if(head==NULL || head->next==NULL){
-        return head;
-    }
-    Node*newhead=reverse_recursive_ADV(head->next);
-    Node*front =head->next;
-    front->next=head;
-    head->next=NULL;
-    return newhead;
+    return slow;
 }
 int main(){
     int n;
@@ -158,13 +130,19 @@ int main(){
     Node*head=create_linked_list(v);
     linked_list_traversal(head);
 
-    head=reverse_iterative_adv(head);
-    linked_list_traversal(head);
+    int brute=middle_brute(head);
+    cout<<brute<<endl;
 
-    head=reverse_recursive(NULL,head);
-    linked_list_traversal(head);
+    Node* optimal=middle_optimal(head);
+    cout<<optimal->data<<endl;
 
-    head=reverse_recursive_ADV(head);
-    linked_list_traversal(head);
 
-}
+
+}    
+
+
+
+
+
+
+
