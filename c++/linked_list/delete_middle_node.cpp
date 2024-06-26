@@ -77,57 +77,25 @@ Node* finding_element(Node*head,int target){
     }
     return NULL;
 }
-// find the length of the loop in ll
-// brute force apporach 
-// time complexity is O(3*n)
-// space complexity is O(n)
-
-int length_loop_brute(Node*head){
-    unordered_map<Node*,int> m;
-    Node*temp=head;
-    while(temp){
-        auto it = m.find(temp);
-        if(it!=m.end()){
-            break;
-        }else{
-            m[temp]=1;
-        }
-    }
-    Node*start=temp;
-    temp=temp->next;
-    int cnt=0;
-    while(start!=temp){
-        cnt++;
-        temp=temp->next;
-    }
-    return cnt;
-}
-
+// delete the middle node of the linked list
 // optimal apporach 
-// time complexity is O(3*n)
-// space complexity is O(1)
+// time complexity is O(n)
+// space complexity is o(1)
 
-int length_loop_optimal(Node*head){
+Node*delete_middle_optimal(Node*head){
+    if(head==NULL || head->next==NULL){
+        return NULL;
+    }
     Node*slow=head;
     Node*fast=head;
-    while(fast!=NULL && fast->next!=NULL){
+    while(fast->next->next!=NULL && fast->next->next->next!=NULL){
         slow=slow->next;
         fast=fast->next->next;
-        if(slow==fast){
-            break;
-        }
     }
     Node*temp=slow;
-    int cnt=1;        
-    if(fast==NULL || fast->next==NULL){
-        return 0;
-    }
-    slow=slow->next;
-    while(slow!=temp){
-        cnt++;
-        slow=slow->next;
-    }
-    return cnt;
+    slow->next=slow->next->next;
+    temp->next=NULL;
+    return head;
 }
 int main(){
     int n;

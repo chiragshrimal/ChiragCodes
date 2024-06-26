@@ -77,57 +77,43 @@ Node* finding_element(Node*head,int target){
     }
     return NULL;
 }
-// find the length of the loop in ll
 // brute force apporach 
-// time complexity is O(3*n)
+// time complexity is O(n)
 // space complexity is O(n)
-
-int length_loop_brute(Node*head){
+Node*starting_point_brute(Node*head){
     unordered_map<Node*,int> m;
     Node*temp=head;
     while(temp){
-        auto it = m.find(temp);
-        if(it!=m.end()){
+        if(m.find(temp)!=m.end()){
             break;
         }else{
             m[temp]=1;
         }
     }
-    Node*start=temp;
-    temp=temp->next;
-    int cnt=0;
-    while(start!=temp){
-        cnt++;
-        temp=temp->next;
-    }
-    return cnt;
+    return temp;
 }
 
+// starting point of the loop 
 // optimal apporach 
-// time complexity is O(3*n)
+// time complexity is O(n)
 // space complexity is O(1)
 
-int length_loop_optimal(Node*head){
+Node*starting_point_optimal(Node*head){
     Node*slow=head;
     Node*fast=head;
     while(fast!=NULL && fast->next!=NULL){
         slow=slow->next;
         fast=fast->next->next;
-        if(slow==fast){
-            break;
+        if(fast==slow){
+            slow=head;
+            while(slow!=fast){
+                slow=slow->next;
+                fast=fast->next;
+            }
+            return slow;
         }
     }
-    Node*temp=slow;
-    int cnt=1;        
-    if(fast==NULL || fast->next==NULL){
-        return 0;
-    }
-    slow=slow->next;
-    while(slow!=temp){
-        cnt++;
-        slow=slow->next;
-    }
-    return cnt;
+    return NULL;
 }
 int main(){
     int n;
@@ -140,6 +126,12 @@ int main(){
     }
     Node*head=create_linked_list(v);
     linked_list_traversal(head);
+
+    Node*brute=starting_point_brute(head);
+    cout<<brute->data<<endl;
+
+    Node*optimal=starting_point_optimal(head);
+    cout<<optimal->data<<endl;
     
 }    
 
