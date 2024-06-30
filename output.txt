@@ -1,2 +1,25 @@
-2->8->3->9->1->NULL
-1->2->3->8->9->NULL
+enter data
+enter left child
+enter data
+enter left child
+enter data
+enter left child
+enter data
+enter right child
+enter data
+enter right child
+enter data
+enter left child
+enter data
+enter right child
+enter data
+enter right child
+enter data
+enter left child
+enter data
+enter right child
+enter data
+5 4 3 6 2 
+3 6 4 2 5 
+3 4 6 5 2 
+5 4 2 3 6 
