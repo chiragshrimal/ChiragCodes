@@ -18,14 +18,16 @@ Node*build_tree(Node*root){
     cin>>val;
     // stopping criteria;
     if(val==-1){
-        return root;
+        return NULL;
     }
     root=new Node(val);
-    build_tree(root->left);
-    build_tree(root->right);
+    root->left=build_tree(root->left);
+    root->right=build_tree(root->right);
     return root;
 }
+
 int main(){
     Node*root=NULL;
     root=build_tree(root);
+
 }
