@@ -60,6 +60,10 @@ void print_right_part(vector<int> & ans,Node*root){
         }
     }
     while(!s.empty()){
+        if(s.top()==root){
+            s.pop();
+            continue;
+        }
         ans.push_back(s.top()->data);
         s.pop();
     }
