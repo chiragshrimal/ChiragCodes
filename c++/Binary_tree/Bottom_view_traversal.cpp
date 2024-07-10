@@ -25,10 +25,10 @@ Node*build_tree(Node*root){
     root->right=build_tree(root->right);
     return root;
 }
-// top view traversal
-// time complexity is O()
-// space complexity is O()
-vector<int> top_view(Node*root){
+// bottom view taraversal 
+// time complexity is o()
+// space complecity is O()
+vector<int> Bottom_view(Node*root){
     map<int,int> m;
     queue<pair<int,Node*>> q;
     vector<int> ans;
@@ -39,10 +39,7 @@ vector<int> top_view(Node*root){
     while(!q.empty()){
         auto it=q.front();
         q.pop();
-        auto p=m.find(it.first);
-        if(p==m.end()){
             m[it.first]=it.second->data;
-        }
         if(it.second->left!=NULL){
             q.push(pair(it.first-1,it.second->left));
         }
@@ -61,7 +58,7 @@ vector<int> top_view(Node*root){
 int main(){
     Node*root=NULL;
     root=build_tree(root);
-    vector<int> ans=top_view(root);
+    vector<int> ans=Bottom_view(root);
     for(auto it : ans){
         cout<<it<<" ";
     }
