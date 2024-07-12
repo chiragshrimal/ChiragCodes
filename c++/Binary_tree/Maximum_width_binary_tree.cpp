@@ -26,49 +26,43 @@ Node*build_tree(Node*root){
     return root;
 }
 // maximum width of binary tree
+// overflow hoga isme 
 // time complexity is O()
 // space complexity is O()
 int maximum_width(Node*root){
-    queue<Node*> q;
-    if(root==NULL){
-        return 0;
-    }
-    int w=0;
-    q.push(root);
+   queue<pair<Node*,long long int>> q;
+    long long int ans=0;
+    q.push({root,0});
     while(!q.empty()){
-        int cursize=q.size();
-        vector<Node*> row;
-        for(int i=0;i<cursize;i++){
-            row.push_back(q.front());
-            Node*temp=q.front();
+        int size=q.size();
+        long long int mini=q.front().second;
+        long long int first,last;
+        for(int i=0;i<size;i++){
+            long long int cur_id=q.front().second-mini;
+            Node*node=q.front().first;
             q.pop();
-            if(temp==NULL){
-                continue;
+            if(i==0){
+                first=cur_id;
             }
-            q.push(temp->left);
-            q.push(temp->right);
-        }
-        int i=0;
-        int j=row.size()-1;
-        while(i<=j){
-            if(row[i]==NULL){
-                i++;
+            if(i==size-1){
+                last=cur_id;
             }
-            if(row[j]==NULL){
-                j--;
+            if(node->left){
+                q.push({node->left,cur_id*2+1});
             }
-            if(row[i]!=NULL && row[j]!=NULL){
-                break;
+            if(node->right){
+                q.push({node->right,cur_id*2+2});
             }
         }
-        w=max(w,j-i+1);
-    }
-    return w;
-}
+        ans=max(ans,last-first+1);
 
+    }
+    return ans;
+}
 
 int main(){
     Node*root=NULL;
     root=build_tree(root);
-
+    int width=maximum_width(root);
+    cout<<width<<endl;
 }
