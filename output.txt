@@ -9,5 +9,4 @@ enter data
 enter data
 enter data
 enter data
-3 4 6 5 2 
-5 4 3 6 2 
+15
