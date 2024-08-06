@@ -48,6 +48,23 @@ void preorder(Node*root){
     return ;
 }
 
+// search key 
+// time complexity is O(n)
+// space complecity is O(n)  
+bool search_node(Node*root,int val){
+    if(root==NULL){
+        return false;
+    }
+    if(root->data==val){
+        return true;
+    }
+    if(root->data>val){
+        return search_node(root->left,val);
+    }
+    return search_node(root->right,val);
+
+}
+
 int main(){
     Node*root=NULL;
     int n;
@@ -59,7 +76,10 @@ int main(){
         cin>>x;
     root=insert_node(root,x);
     }
-    preorder(root);
+    // preorder(root);
+
+    bool check=search_node(root,4);
+    cout<<check<<endl;
 
     
 

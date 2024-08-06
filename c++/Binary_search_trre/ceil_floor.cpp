@@ -48,6 +48,48 @@ void preorder(Node*root){
     return ;
 }
 
+// ceil of the  key 
+// time complexity is O(n)
+// space complecity is O(n)  
+int  find(Node*root,int val,int pre){
+    if(root==NULL){
+        return pre;
+    }
+    if(root->data==val){
+        return val;
+    }
+    if(root->data>val){
+        pre=root->data;
+        return find(root->left,val,pre);
+    }
+    return find(root->right,val,pre);
+
+}
+int ceil(Node*root,int val){
+    int pre=-1;
+    return find(root,val,pre);
+}
+
+int calculate_floor(Node*root,int val,int pre){
+     if(root==NULL){
+        return pre;
+    }
+    if(root->data==val){
+        return val;
+    }
+    if(root->data>val){
+        return calculate_floor(root->left,val,pre);
+    }
+    pre=root->data;
+    return calculate_floor(root->right,val,pre);
+}
+
+int floor(Node*root,int val){
+    int pre=-1;
+    return calculate_floor(root,val,pre);
+}
+
+
 int main(){
     Node*root=NULL;
     int n;
@@ -59,7 +101,13 @@ int main(){
         cin>>x;
     root=insert_node(root,x);
     }
-    preorder(root);
+    // preorder(root);
+
+    // int ceil_val=ceil(root,10);
+    // cout<<ceil_val<<endl;
+
+     int floor_val=floor(root,10);
+    cout<<floor_val<<endl;
 
     
 
