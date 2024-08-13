@@ -52,31 +52,27 @@ void preorder(Node*root){
 // time complexity is O()
 // space compelxity is O()
 
-pair<bool,int> solve(Node*root){
-    if(root->left==NULL && root->right==NULL){
-        return (true,root->data);
+bool solve(Node*root,int min ,int max){
+    if(root==NULL){
+        return true;
     }
 
-    pair<bool,int> p1=solve(root->left);
-    if(p1.first==false){
-        return p1;
-    }
-    pair<bool,int> p2=solve(root->right);
-    if(p2.first==false){
-        return p2;
-    }
-    if(p1.second<root->data<p2.second){
-        return (true,min())
+    if(min<root->data<max){
+        bool p1=solve(root->left,min,root->data);
+        if(p1==false){
+            return false;
+        }
+        bool p2=solve(root->right,root->data,max);
+        return p1 && p2;
     }else{
-        return (false,min());
+        return false;
     }
 }
 
 bool checkBst(Node*root){
-    if(root==NULL){
-        return true;
-    }
-    return solve(root).first;
+    int min=INT_MIN;
+    int max=INT_MAX;
+    return solve(root,min,max);
 }
 
 int main(){
@@ -90,8 +86,10 @@ int main(){
         cin>>x;
     root=insert_node(root,x);
     }
-    preorder(root);
+    // preorder(root);
 
+    bool ans=checkBst(root);
+    cout<<ans<<endl;
     
 
 }
