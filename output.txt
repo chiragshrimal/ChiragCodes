@@ -1,9 +1,0 @@
-enter number of nodes
-enter data 
-enter data 
-enter data 
-enter data 
-enter data 
-enter data 
-enter data 
-9
