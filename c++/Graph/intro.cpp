@@ -6,7 +6,7 @@ int main(){
     cin>>n>>m;
     // methord 1
     // using matrix
-    // int adj[n+1][n+1];
+    // int adj[n+1][n+1]={0};
     // for(int i=0;i<m;i++){
     //     int v,u;
     //     cin>>v>>u;
