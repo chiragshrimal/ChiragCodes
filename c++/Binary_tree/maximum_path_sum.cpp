@@ -37,6 +37,19 @@ int maximum_path_sum(Node*root ,int & maxi){
     maxi=max(maxi,root->data+left+right);
     return root->data + max(left,right);
 }
+// optimal apporach 
+int maximum_path_optimal(Node*root,int &maxi){
+    if(root==NULL){
+        return 0;
+    }
+    int left=maximum_path_optimal(root->left,maxi);
+    int right=maximum_path_optimal(root->right,maxi);
+
+    int temp=max(max(left,right)+root->data,root->data);
+    int ans=max(temp,left+right+root->data);
+    maxi=max(maxi,ans);
+    return temp;
+}
 
 int main(){
     Node*root=NULL;
@@ -44,5 +57,9 @@ int main(){
     int maxi=INT_MIN;
     int maximum=maximum_path_sum(root,maxi);
     cout<<maximum<<endl;
+    int maxi2=INT_MIN;
+    maximum_path_optimal(root,maxi2);
+    cout<<maxi2<<endl;
+
 
 }
