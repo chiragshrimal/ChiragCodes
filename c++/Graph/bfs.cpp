@@ -21,7 +21,6 @@ vector<int> bfs_traversal(int start,int n,vector<int>arr[]){
     }
     return ans;
 }
-
 int main(){
     int n,m;
     cin>>n>>m;
@@ -52,7 +51,6 @@ int main(){
     for(auto it : ans){
         cout<<it<<endl;
     }
-
     // if we have weighted graph then 
     // we can store pair in case of int 
 }
