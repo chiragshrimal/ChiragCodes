@@ -1,6 +1,10 @@
 #include<bits/stdc++.h>
 using namespace std;
 
+
+// using dfs 
+// time complexity including detect cycle O(n)
+// space compelx,ity is O(n)+O(n)
 bool dfs_traversal(int start,int parent,vector<int>& visited,vector<int> adj[]){
     visited[start]=1;
     int size=adj[start].size();
@@ -26,6 +30,33 @@ bool detect_cycle(int n,vector<int> adj[]){
        if(b1==true){
         return true;
        }
+    }
+    return false;
+}
+
+// using bfs 
+// time complekxity is O(n);
+// space comnplexity is o(n);
+bool bfs(int start,vector<vector<int>> & adj,vector<int>& visited){
+    visited[start]=1;
+    queue<pair<int,int>> q;
+    q.push({start,-1});
+    while(!q.empty()){
+        auto it =q.front();
+        int start=it.first;
+        int parent=it.second;
+        int size=adj[start].size();
+        q.pop();
+        for(int i=0;i<size;i++){
+            if(visited[ad[start][i]]==0){
+                visited[adj[start][i]]=1;
+                q.push({adj[start][i],start});
+            }else{
+                if(parent!=adj[start][i]){
+                    return true;
+                }
+            }
+        }
     }
     return false;
 }

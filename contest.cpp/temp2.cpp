@@ -1,48 +1,41 @@
-#include<bits/stdc++.h>
+#include <bits/stdc++.h>
 using namespace std;
 
+#define ll long long
+#define endl '\n'
+#define debug(x) cout << #x << " = " << x << endl
 
-int binary_multiplication (int a, int b)
-{
-    int m=1e9+7;
-    int sum  = 0;
-    while (b)
-    {
-        if ((b & 1) == 1){
-            sum=(sum+a)%m;
-        }
-             a = (a + a)%m;
-             b = b >> 1;
-    }
-    
-    return sum;
-}
-int m_bit_exponention(int a, int b)
-{
-    int ans = 1;
-    while (b)
-    {
-        if ((b & 1) == 1)
-            ans = binary_multiplication(ans,a);
-             a = binary_multiplication(a,a);
-             b = b >> 1;
-    }
-   
-    return ans;
+int compareInfection(pair<int,int> virus, pair<int,int> bacteria) {
+    return virus.first + virus.second < bacteria.first + bacteria.second;
 }
 
-int main(){
-    int t;
-    cin >> t;
-    for(int i=0;i<t;i++){
-        int x,y;
-        cin>>x>>y;
-        if(x==y){
-            cout<<1<<endl;
-            continue;
-        }
-        int result=m_bit_exponention(2,y);
-        cout<<result<<endl;
+void spreadPlague() {
+    int infectionCount;
+    cin >> infectionCount;
+    vector<pair<int,int>> pathogenStrains(infectionCount);
+    for (int i = 0; i < infectionCount; i++) {
+        cin >> pathogenStrains[i].first;
+        cin >> pathogenStrains[i].second;
     }
+    sort(pathogenStrains.begin(), pathogenStrains.end(), compareInfection);
+    for (int i = 0; i < infectionCount; i++) {
+        if (i != infectionCount - 1)
+            cout << pathogenStrains[i].first << " " << pathogenStrains[i].second << " ";
+        else
+            cout << pathogenStrains[i].first << " " << pathogenStrains[i].second;
+    }
+    cout << endl;
+}
+
+int32_t main() {
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+
+    int epidemicWaves = 1;
+    cin >> epidemicWaves;
+    for (int i = 1; i <= epidemicWaves; ++i) {
+        spreadPlague();
+    }
+
     return 0;
 }
