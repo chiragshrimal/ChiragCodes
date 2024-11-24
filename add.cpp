@@ -4,6 +4,4 @@ int main(){
     int a=10000;
     int b=1000000;
     cout<<a*1ll*b<<endl;
-
-
 }
