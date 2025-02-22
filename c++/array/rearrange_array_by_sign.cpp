@@ -2,7 +2,7 @@
 using namespace std;
 // brute force apporach 
 // time complexity is O(n)
-// space complexity is O(1)
+// space complexity is O(n)
 void rearrange_brute(int n,int arr[]){
     int posi[n/2];
     int negi[n/2];
@@ -31,6 +31,13 @@ void rearrange_brute(int n,int arr[]){
 
 int * rearrange_optimal(int n,int arr[]){
     int *temp=(int*)malloc(n*sizeof(int));
+    if(n==1){
+        temp[0]=arr[0];
+    }
+    if(n==2){
+        temp[0]=min(arr[0],arr[1]);
+        temp[1]=max(arr[0],arr[1]);
+    }
     int possi=0;
     int neggi=1;
     for(int i=0;i<n;i++){

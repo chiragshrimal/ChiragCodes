@@ -65,8 +65,7 @@ int number_substring_optimal2(string str){
             c=i;
         }
         if(a!=-1 && b!=-1 && c!=-1){
-            int minimum=min(a,b);
-            minimum=min(minimum,c);
+            int minimum=min(a,min(b,c));
             count=count + minimum+1;
 
         }
