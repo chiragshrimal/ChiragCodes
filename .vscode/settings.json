@@ -1,5 +1,9 @@
 {
     "files.associations": {
+<<<<<<< HEAD
+        "shared_mutex": "c"
+    }
+=======
         "iostream": "cpp",
         "functional": "cpp",
         "deque": "cpp",
@@ -10,4 +14,5 @@
         "xutility": "cpp"
     },
     "C_Cpp.errorSquiggles": "disabled"
+>>>>>>> 088d50d29161267d3afb491d5a7c3458a618c917
 }
