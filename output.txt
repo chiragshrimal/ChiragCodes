@@ -1,1 +1,2 @@
-10
+using optimal apporach 
+33
