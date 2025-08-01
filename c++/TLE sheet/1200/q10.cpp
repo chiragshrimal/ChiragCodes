@@ -78,90 +78,75 @@ void sieve()
     }
 }
 
-void solve()
+ll bs(vector<ll> &maxi, ll x, vector<ll> &presum)
 {
-    int n;
-    cin >> n;
-    vector<int> a(n);
-
-    for (int i = 0; i < n; i++)
+    int n = maxi.size();
+    if (maxi[n - 1] <= x)
     {
-        cin >> a[i];
+        return presum[n - 1];
     }
-
-    vector<int> freq(n + 2, 0);
-    for (int x : a)
+    if (maxi[0] > x)
     {
-        freq[x]++;
+        return 0;
     }
-
-    vector<int> diff(n + 2, 0);
-
-    int prefixExtra = 0;
-    int suffixTotal = 0;
-
-    for (int i = 1; i <= n; i++)
+    ll l = 0;
+    ll h = n - 1;
+    ll ans = INT_MIN;
+    while (l < h)
     {
-        suffixTotal += freq[i];
-    }
-
-    bool is_possible = true;
-    for (int m = 0; m <= n; m++)
-    {
-        if (m > 0 && freq[m - 1] == 0)
-            is_possible = false;
-
-        if (!is_possible)
+        ll mid = l + (h - l) / 2;
+        if (maxi[mid] <= x)
         {
-            if (m < n)
-            {
-                prefixExtra += max(0, freq[m] - 1);
-                suffixTotal -= freq[m + 1];
-            }
-            continue;
-        }
-
-        int minK = freq[m];
-        int maxK = prefixExtra + freq[m] + suffixTotal;
-
-        if (minK <= n)
-        {
-            diff[minK]++;
-            diff[min(maxK, n) + 1]--;
-        }
-
-        if (m < n)
-        {
-            prefixExtra += max(0, freq[m] - 1);
-            suffixTotal -= freq[m + 1];
-        }
-    }
-
-    vector<int> result(n + 1, 0);
-    for (int k = 0; k <= n; k++)
-    {
-        if (k == 0)
-        {
-            result[k] = diff[k];
+            ans = max(ans, presum[mid]);
+            l = mid + 1;
         }
         else
         {
-            result[k] = result[k - 1] + diff[k];
+            h = mid;
         }
     }
+    return ans;
+}
 
-    for (int k = 0; k <= n; k++)
+void solve()
+{
+    int n, q;
+    cin >> n >> q;
+    vll arr(n, 0);
+    for (int i = 0; i < n; i++)
     {
-        cout << result[k];
-        if (k < n)
-            cout << " ";
+        cin >> arr[i];
     }
-    cout << "\n";
+    vll query(q, 0);
+    for (int i = 0; i < q; i++)
+    {
+        cin >> query[i];
+    }
+    vll presum(n, 0);
+    presum[0] = arr[0];
+    for (int i = 1; i < n; i++)
+    {
+        presum[i] = presum[i - 1] + arr[i];
+    }
+    vll maxi(n, 0);
+    maxi[0] = arr[0];
+    for (int i = 1; i < n; i++)
+    {
+        maxi[i] = max(maxi[i - 1], arr[i]);
+    }
+    for (int i = 0; i < q; i++)
+    {
+        ll ans = bs(maxi, query[i], presum);
+        cout << ans << " ";
+    }
+    cout << endl;
+    return;
 }
 
 int main()
 {
-    FAST_IO;
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
     int t;
     cin >> t;
     while (t--)

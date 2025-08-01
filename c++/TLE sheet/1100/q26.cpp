@@ -20,6 +20,7 @@ const ll INF = LLONG_MAX;
     cin.tie(0);              \
     cout.tie(0);
 
+// Function to calculate (a^b) % mod using Binary Exponentiation
 ll power(ll a, ll b, ll mod = MOD)
 {
     ll res = 1;
@@ -33,11 +34,13 @@ ll power(ll a, ll b, ll mod = MOD)
     return res;
 }
 
+// Function to find modular inverse using Fermat's Little Theorem (a^(MOD-2) % MOD)
 ll mod_inv(ll a, ll mod = MOD)
 {
     return power(a, mod - 2, mod);
 }
 
+// Function to check if a number is prime
 bool is_prime(ll n)
 {
     if (n < 2)
@@ -48,19 +51,23 @@ bool is_prime(ll n)
     return true;
 }
 
+// Function to compute GCD
 ll gcd(ll a, ll b) { return b == 0 ? a : gcd(b, a % b); }
 
+// Function to compute LCM
 ll lcm(ll a, ll b) { return (a / gcd(a, b)) * b; }
 
+// Sieve of Eratosthenes for finding all prime numbers up to MAXN
 const int N = 1e7 + 5;
-vi high_primefactor(N, 0);
-vi low_primefactor(N, 0);
+vi high_primefactor(N, 0); // store high prime factor of ith element
+vi low_primefactor(N, 0);  // store low prime factor of ith element
 void sieve()
 {
-    vi v(N, 1);
+    vi v(N, 1); // let assume all numbers are prime
     v[1] = v[0] = 0;
+    // sleves algorithm
     for (int i = 2; i < N; i++)
-    {
+    { // time complexity is O(n*log(log(n)))
         if (v[i] == 1)
         {
             low_primefactor[i] = i;
@@ -78,85 +85,64 @@ void sieve()
     }
 }
 
-void solve()
-{
-    int n;
-    cin >> n;
-    vector<int> a(n);
-
-    for (int i = 0; i < n; i++)
-    {
-        cin >> a[i];
+bool fun(vector<int>&arr, int n){
+    for(int i=0;i<n;i++){
+        if(arr[i]!=arr[i+1]){
+            return false;
+        }
     }
+    return true;
+}
 
-    vector<int> freq(n + 2, 0);
-    for (int x : a)
-    {
-        freq[x]++;
+ll binaryMulti(ll a, ll b){
+    ll mod=1e9+7;
+    ll sum=0;
+    while(b>0){
+        if(b&1){
+            sum=(sum+a)%mod;
+        }
+        a=(a+a)%mod;
+        b=b>>1;
     }
+    return sum%mod;
+}
 
-    vector<int> diff(n + 2, 0);
 
-    int prefixExtra = 0;
-    int suffixTotal = 0;
-
-    for (int i = 1; i <= n; i++)
-    {
-        suffixTotal += freq[i];
+void solve(){
+    ll n;
+    cin>>n;
+    vll w(n,0);
+    for(int i=0;i<n;i++){
+        cin>>w[i];
     }
-
-    bool is_possible = true;
-    for (int m = 0; m <= n; m++)
-    {
-        if (m > 0 && freq[m - 1] == 0)
-            is_possible = false;
-
-        if (!is_possible)
-        {
-            if (m < n)
-            {
-                prefixExtra += max(0, freq[m] - 1);
-                suffixTotal -= freq[m + 1];
+    vll leftSum=w;
+    vll rightSum=w;
+    for(int i=1;i<n;i++){
+        leftSum[i]=leftSum[i-1]+w[i];
+        rightSum[n-i-1]=rightSum[n-i]+w[n-i-1];
+    }
+    int i=0;
+    int j=n-1;
+    ll sum1=0;
+    ll sum2=0;
+    ll ele=0;
+    while(i<j){
+        sum1=leftSum[i];
+        sum2=rightSum[j];
+        if(sum1==sum2){
+            ele=max(ele,i+1+n-j);
+            i++;
+            j--;
+        }else{
+            if(sum1>sum2){
+                j--;
+            }else{
+                i++;
             }
-            continue;
-        }
-
-        int minK = freq[m];
-        int maxK = prefixExtra + freq[m] + suffixTotal;
-
-        if (minK <= n)
-        {
-            diff[minK]++;
-            diff[min(maxK, n) + 1]--;
-        }
-
-        if (m < n)
-        {
-            prefixExtra += max(0, freq[m] - 1);
-            suffixTotal -= freq[m + 1];
         }
     }
-
-    vector<int> result(n + 1, 0);
-    for (int k = 0; k <= n; k++)
-    {
-        if (k == 0)
-        {
-            result[k] = diff[k];
-        }
-        else
-        {
-            result[k] = result[k - 1] + diff[k];
-        }
-    }
-
-    for (int k = 0; k <= n; k++)
-    {
-        cout << result[k];
-        if (k < n)
-            cout << " ";
-    }
-    cout << "\n";
+    cout<<ele<<endl;
+    return;
 }
 
 int main()

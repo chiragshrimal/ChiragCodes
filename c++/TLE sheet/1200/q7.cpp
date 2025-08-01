@@ -52,68 +52,62 @@ ll gcd(ll a, ll b) { return b == 0 ? a : gcd(b, a % b); }
 
 ll lcm(ll a, ll b) { return (a / gcd(a, b)) * b; }
 
-const int N = 1e5 + 5;
-int min_prime[N];
+const int N = 1e7 + 5;
+vi high_primefactor(N, 0);
+vi low_primefactor(N, 0);
 void sieve()
 {
+    vi v(N, 1);
+    v[1] = v[0] = 0;
     for (int i = 2; i < N; i++)
     {
-        if (min_prime[i] == 0)
+        if (v[i] == 1)
         {
-            for (int j = i; j < N; j += i)
+            low_primefactor[i] = i;
+            high_primefactor[i] = i;
+            for (int j = i * 2; j < N; j += i)
             {
-                if (min_prime[j] == 0)
+                v[j] = 0;
+                if (low_primefactor[j] == 0)
                 {
-                    min_prime[j] = i;
+                    low_primefactor[j] = i;
                 }
+                high_primefactor[j] = i;
             }
         }
     }
 }
-
-void solve()
-{
-    int n;
-    cin >> n;
-    vector<vector<int>> groups(N);
-    for (int i = 2; i <= n; i++)
-    {
-        groups[min_prime[i]].pb(i);
-    }
-
-    vi p(n + 1, 0);
-    p[1] = 1;
-
-    for (int i = 2; i <= n; i++)
-    {
-        if (!groups[i].empty())
-        {
-            auto &group = groups[i];
-            int sz = group.size();
-            for (int j = 0; j < sz; j++)
-            {
-                int current = group[j];
-                int next = group[(j + 1) % sz];
-                p[current] = next;
-            }
-            group.clear();
+void solve() {
+    int n,m;
+    cin>>n>>m;
+    vector<vector<ll>> arr(n,vector<ll>(m,0));
+    for(int i=0;i<n;i++){
+        for(int j=0;j<m;j++){
+            cin>>arr[i][j];
         }
     }
-
-    for (int i = 1; i <= n; i++)
-    {
-        cout << p[i] << " ";
+    ll cnt=0;
+    for(int i=0;i<m;i++){
+        vector<ll> temp(n,0);
+        for(int j=0;j<n;j++){
+            temp[j]=arr[j][i];
+        }
+        sort(temp.begin(),temp.end());
+        for(int i=0;i<n;i++){
+            cnt+=-((n-1-2*i)*temp[i]);
+        }
     }
-    cout << "\n";
+    cout<<cnt<<endl;
+    return ;
+
 }
 
-int main()
-{
-    FAST_IO;
-    sieve();
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
     int t;
     cin >> t;
-    while (t--)
-        solve();
+    while (t--) solve();
     return 0;
 }

@@ -91,13 +91,16 @@ int main(){
     cout<<ans<<endl;
     int n=n_c_r(row,coloum);
     cout<<n<<endl;
+    // brute apporach 
     vector<int> brute=print_row_brute(row);
     cout<<endl;
+    // optimal aporach 
     vector<int> optimal=print_row_optimal(row);
     for(auto it : optimal){
         cout<<it<<" ";
     }
     cout<<endl;
+    // brute apporach 
     vector<vector<int>> all_brute=print_all_brute(row);
     for(auto it: all_brute){
         for(auto p: it){

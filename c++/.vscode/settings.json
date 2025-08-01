@@ -3,6 +3,11 @@
         "limits": "cpp",
         "utility": "cpp",
         "iostream": "cpp",
-        "cstdlib": "cpp"
+        "cstdlib": "cpp",
+        "xstring": "cpp",
+        "xutility": "cpp",
+        "algorithm": "cpp",
+        "ios": "cpp",
+        "xiosbase": "cpp"
     }
 }

@@ -77,94 +77,67 @@ void sieve()
         }
     }
 }
-
-void solve()
-{
+void solve() {
     int n;
-    cin >> n;
-    vector<int> a(n);
-
-    for (int i = 0; i < n; i++)
-    {
-        cin >> a[i];
+    cin>>n;
+    vi arr(n,0);
+    for(int i=0;i<n;i++){
+        cin>>arr[i];
     }
-
-    vector<int> freq(n + 2, 0);
-    for (int x : a)
-    {
-        freq[x]++;
+    if(n<=3){
+        cout<<-1<<endl;
+        return ;
     }
-
-    vector<int> diff(n + 2, 0);
-
-    int prefixExtra = 0;
-    int suffixTotal = 0;
-
-    for (int i = 1; i <= n; i++)
-    {
-        suffixTotal += freq[i];
+    priority_queue<int> maxHeap;
+    priority_queue<int,vector<int>, greater<int>> minHeap;
+    for(int i=0;i<n;i++){
+        maxHeap.push(arr[i]);
+        minHeap.push(arr[i]);
     }
-
-    bool is_possible = true;
-    for (int m = 0; m <= n; m++)
-    {
-        if (m > 0 && freq[m - 1] == 0)
-            is_possible = false;
-
-        if (!is_possible)
-        {
-            if (m < n)
-            {
-                prefixExtra += max(0, freq[m] - 1);
-                suffixTotal -= freq[m + 1];
+    int i=0;
+    int j=n-1;
+    while(i<j && !minHeap.empty() && !maxHeap.empty() ){
+        if((arr[i]==minHeap.top() || arr[i]==maxHeap.top()) && (arr[j]==minHeap.top() || arr[j]==maxHeap.top())){
+            minHeap.pop();
+            maxHeap.pop();
+            i++;
+            j--;
+        }else{
+            if(arr[i]==minHeap.top() || arr[i]==maxHeap.top()){
+                if(arr[i]==minHeap.top()){
+                    minHeap.pop();
+                    i++;
+                    continue;
+                }
+                maxHeap.pop();
+                i++;
+            }else{
+                if(arr[j]==minHeap.top() || arr[j]==maxHeap.top()){
+                    if(arr[j]==minHeap.top()){
+                    minHeap.pop();
+                    j--;
+                    continue;
+                }
+                maxHeap.pop();
+                j--;
+                }else{
+                    cout<<i+1<<" "<<j+1<<endl;
+                    return ;
+                }
             }
-            continue;
-        }
-
-        int minK = freq[m];
-        int maxK = prefixExtra + freq[m] + suffixTotal;
-
-        if (minK <= n)
-        {
-            diff[minK]++;
-            diff[min(maxK, n) + 1]--;
-        }
-
-        if (m < n)
-        {
-            prefixExtra += max(0, freq[m] - 1);
-            suffixTotal -= freq[m + 1];
         }
     }
+    cout<<-1<<endl;
+    return ;
 
-    vector<int> result(n + 1, 0);
-    for (int k = 0; k <= n; k++)
-    {
-        if (k == 0)
-        {
-            result[k] = diff[k];
-        }
-        else
-        {
-            result[k] = result[k - 1] + diff[k];
-        }
-    }
-
-    for (int k = 0; k <= n; k++)
-    {
-        cout << result[k];
-        if (k < n)
-            cout << " ";
-    }
-    cout << "\n";
 }
 
-int main()
-{
-    FAST_IO;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
     int t;
     cin >> t;
-    while (t--)
-        solve();
+    while (t--) solve();
     return 0;
 }
